@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [ "$(id -u)" != "0" ]; then
-	echo "This script must be ran as root."
-	exit 1
-fi
-
 # Setup some config vars
 poolDir="/etc/php5/fpm/pool.d"
 vHostDir="/etc/nginx/sites-available"
@@ -26,6 +21,11 @@ NC='\033[0m' # No Color
 #
 #
 #
+
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be ran as root."
+	exit 1
+fi
 
 # Get the main directory of the script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
