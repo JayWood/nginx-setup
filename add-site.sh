@@ -98,11 +98,28 @@ if [ ! -d "$DIR/files" ]; then
 	exit 1
 fi
 
+# Will resuse this below
+hostFile="$vHostDir/$domain"
+
 #copy the resource TPL file and move it
-cp "$DIR/files/vhost.tpl" "$vHostDir/$domain"
+cp "$DIR/files/vhost.tpl" "$hostFile"
 
 # Replace username with username in the vhost file
-replace "%USER%" "$username" -- "$vHostDir/$domain"
+replace "%USER%" "$username" -- "$hostFile"
 
 # Replace the domain now.
-replace "%DOMAIN%" "$domain" -- "$vHostDir/$domain"
+replace "%DOMAIN%" "$domain" -- "$hostFile"
+
+# Make the website directory now.
+mkdir "/home/$username/html/$domain" && chown "$username:$username /home/$username/html/$domain";
+
+success "You're all setup, would you like to password this install, enter a password now, or just hit [ENTER] to skip this step."
+read passInstall
+
+if [[ -z "${passInstall// }" ]]; then
+	replace "auth_basic" "#auth_basic" -- "$hostFile"
+else
+	# Create passwd file
+	htpasswd "/home/$username/.htpasswd" "$username" passInstall
+fi
+

@@ -40,4 +40,4 @@ server {
 
 }
 
-include /etc/nginx/sites-available/%USER%.d/*;
+include /etc/nginx/sites-available/%DOMAIN%.d/*;
