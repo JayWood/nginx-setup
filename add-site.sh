@@ -115,11 +115,13 @@ replace "%DOMAIN%" "$domain" -- "$hostFile"
 mkdir "/home/$username/html/$domain" && chown "$username:$username" "/home/$username/html/$domain";
 
 # Create the .d directory for this domain. Will store subdomains there.
-mkdir "$vHostDir/sites-available/$domain.d"
+mkdir "$vHostDir/$domain.d"
 
 success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
 read passInstall
 $passInstall="${passInstall// }"
+
+echo "|$passInstall|"
 
 if [[ -z $passInstall ]]; then
 	echo "Disabling basic_auth on host file..."
