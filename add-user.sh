@@ -56,7 +56,7 @@ setupUser() {
 	success "Make sure you save the username/password combo below."
 	success "==========================================================="
 	success "Login: $username"
-	success "Password: $sshPass"
+	success "Password: ${sshPass}"
 }
 
 if isValidUsername "$username"; then
