@@ -60,6 +60,7 @@ EOF
 if [[ ! $@ =~ ^\-.+ ]]
 then
   showHelp
+  exit
 fi
 
 while [[ $# -gt 1 ]]; do
@@ -113,7 +114,7 @@ replace "%DOMAIN%" "$domain" -- "$hostFile"
 # Make the website directory now.
 mkdir "/home/$username/html/$domain" && chown "$username:$username /home/$username/html/$domain";
 
-success "You're all setup, would you like to password this install, enter a password now, or just hit [ENTER] to skip this step."
+success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
 read passInstall
 
 if [[ -z "${passInstall// }" ]]; then
