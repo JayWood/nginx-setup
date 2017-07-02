@@ -50,11 +50,11 @@ key="$1"
 
 case $key in
     -u|--username)
-    ${username}="$2"
+    username="$2"
     shift # past argument
     ;;
     -h|--host)
-    ${domain}="$2"
+    domain="$2"
     shift # past argument
     ;;
     *)
