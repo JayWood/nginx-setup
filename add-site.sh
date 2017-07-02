@@ -44,7 +44,7 @@ then
   showHelp
 fi
 
-while [[ $# -gt 1 ]] do
+while [[ $# -gt 1 ]]; do
 	key="$1"
 	case $key in
 	    -u|--username)
