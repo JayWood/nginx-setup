@@ -66,7 +66,7 @@ while [[ $# -gt 1 ]]; do
 	key="$1"
 	case $key in
 	    -u|--username)
-	    username="$2"
+	    username="$2 | tr -d '[:space:]'"
 	    shift # past argument
 	    ;;
 	    -h|--host)
