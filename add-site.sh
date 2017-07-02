@@ -16,7 +16,7 @@ echo ${DIR}
 
 # Some globals for later
 username=""
-sshPass=""
+domain=""
 htPass=""
 
 # A few colors for important stuff
@@ -24,9 +24,12 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
+# Creates a random password using the built-in urandom
+randomPW(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
+
 showHelp() {
 cat << EOF
-${GREEN}Usage: ${0##*/} -u USERNAME -h DOMAIN...${NC}
+Usage: ${0##*/} -u USERNAME -h DOMAIN...
 Create a website and resource pool for DOMAIN for USERNAME
 
 	-u USERNAME   Usernames are limited to 0-9A-Za-z_-
@@ -40,3 +43,26 @@ if [[ ! $@ =~ ^\-.+ ]]
 then
   showHelp
 fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    ${username}="$2"
+    shift # past argument
+    ;;
+    -h|--host)
+    ${domain}="$2"
+    shift # past argument
+    ;;
+    *)
+      # Skip this option, nothing special
+    ;;
+esac
+shift # past argument or value
+done
+
+echo "${username} and ${domain}"
+
