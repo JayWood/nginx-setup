@@ -112,7 +112,7 @@ replace "%USER%" "$username" -- "$hostFile"
 replace "%DOMAIN%" "$domain" -- "$hostFile"
 
 # Make the website directory now.
-mkdir "/home/$username/html/$domain" && chown "$username:$username /home/$username/html/$domain";
+mkdir "/home/$username/html/$domain" && chown "$username:$username" "/home/$username/html/$domain";
 
 success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
 read passInstall
