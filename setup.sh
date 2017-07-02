@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Define Username"
 read username
 
-sh "$DIR/add-user.sh -u $username"
+sh "$DIR/add-user.sh" -u "$username"
