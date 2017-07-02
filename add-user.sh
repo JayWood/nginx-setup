@@ -15,4 +15,52 @@ Create a website and resource pool for DOMAIN for USERNAME
 EOF
 }
 
-showHelp
+# Require options to be setup.
+if [[ ! $@ =~ ^\-.+ ]]; then
+	error "You must specify the -u parameter."
+	showHelp
+	exit
+fi
+
+while [[ $# -gt 1 ]]; do
+	key="$1"
+	case $key in
+	    -u|--username)
+	    username="$2"
+	    shift # past argument
+	    ;;
+	    *)
+	      # Skip this option, nothing special
+	    ;;
+	esac
+	shift # past argument or value
+done
+
+# Creates all user directories.
+setupUser() {
+	success "Creating directories for ${username}"
+	useradd -m "${username}"
+	base="/home/${username}"
+	sshPass=randomPW
+
+	# Set the users password.
+	echo -e "${sshPass}\n${sshPass}" | passwd "${username}"
+
+	# The main dirs
+	mkdir "${base}/log"
+	mkdir "${base}/html"
+	mkdir "${base}/tmp"
+	mkdir "${base}/run"
+}
+
+if isValidUsername "$username"; then
+	if [ -d "/home/$username" ]; then
+		error "The user $username already exists, please choose another."
+		getUser
+	else
+		setupUser
+	fi
+else
+	error "$username is not a valid username"
+	getUser
+fi
