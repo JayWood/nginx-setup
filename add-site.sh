@@ -12,7 +12,6 @@ vHostLinks="/etc/nginx/sites-enabled"
 
 # Get the main directory of the script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo ${DIR}
 
 # Some globals for later
 username=""
@@ -26,6 +25,25 @@ NC='\033[0m' # No Color
 
 # Creates a random password using the built-in urandom
 randomPW(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
+
+# Validates the username against some regex.
+isValidUsername() {
+	local re='^[[:lower:]_][[:lower:][:digit:]_-]{2,15}$'
+ 	(( ${#1} > 16 )) && return 1
+ 	[[ $1 =~ $re ]] # return value of this comparison is used for the function
+}
+
+# Wrapper for displaying error messages
+error() {
+	echo -e "${RED}ERROR:${NC} $1"
+	echo
+}
+
+# Wrapper for displaying success messages
+success() {
+	echo -e "${GREEN}$1${NC}"
+	echo
+}
 
 showHelp() {
 cat << EOF
@@ -62,5 +80,15 @@ while [[ $# -gt 1 ]]; do
 	shift # past argument or value
 done
 
-echo "${username} and ${domain}"
+# Chances are if we can't validate the name, then the user doesn't exist.
+if isValidUsername "$username"; then
+	error "$username is not a valid username."
+	exit 1
+fi
+
+# If the user doesn't have a home directory, there's no need to continue.
+if [ ! -d "/home/$username" ]; then
+	error "The user $username appears to not be created?"
+	exit 1
+else
 

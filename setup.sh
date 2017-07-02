@@ -24,7 +24,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-
+# Validates the username against some regex.
 isValidUsername() {
 	local re='^[[:lower:]_][[:lower:][:digit:]_-]{2,15}$'
  	(( ${#1} > 16 )) && return 1
