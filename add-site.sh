@@ -102,7 +102,7 @@ fi
 # Will resuse this below
 hostFile="$vHostDir/$domain"
 
-#copy the resource TPL file and move it
+# Copy the resource TPL file and move it
 cp "$DIR/files/vhost.tpl" "$hostFile"
 
 # Replace username with username in the vhost file
@@ -117,20 +117,22 @@ mkdir "/home/$username/html/$domain" && chown "$username:$username" "/home/$user
 # Create the .d directory for this domain. Will store subdomains there.
 mkdir "$vHostDir/$domain.d"
 
-success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
-read passInstall
-$passInstall="${passInstall// }"
 
-echo "|$passInstall|"
+# TODO Setup htaccess auth properly.
+# success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
+# read passInstall
 
-if [[ -z $passInstall ]]; then
-	echo "Disabling basic_auth on host file..."
-	replace "auth_basic" "#auth_basic" -- "$hostFile"
-else
-	# Create passwd file
-	htpasswd -c "/home/$username/.htpasswd" "$username" "$passInstall"
+# # Trim the result
+# passInstall="${passInstall// }"
 
-	echo "Setting host file for authoriazation..."
-	replace "#auth_basic" "auth_basic" -- "$hostFile"
-fi
+# if [[ -z $passInstall ]]; then
+# 	echo "Disabling basic_auth on host file..."
+# 	replace "auth_basic" "#auth_basic" -- "$hostFile"
+# else
+# 	# Create passwd file
+# 	htpasswd -b "/home/$username/.htpasswd" "$username" "$passInstall"
+
+# 	echo "Setting host file for authoriazation..."
+# 	replace "#auth_basic" "auth_basic" -- "$hostFile"
+# fi
 
