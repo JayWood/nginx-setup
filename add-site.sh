@@ -104,5 +104,5 @@ cp "$DIR/files/vhost.tpl" "$vHostDir/$domain"
 # Replace username with username in the vhost file
 replace "%USER%" "$username" -- "$vHostDir/$domain"
 
-// Replace the domain now.
+# Replace the domain now.
 replace "%DOMAIN%" "$domain" -- "$vHostDir/$domain"
