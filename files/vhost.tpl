@@ -4,7 +4,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name jays.link;
+    server_name %DOMAIN%;
 
     root /home/%USER%/html/%site%;
     index index.php index.html index.htm;
