@@ -51,6 +51,12 @@ setupUser() {
 	mkdir "${base}/html"
 	mkdir "${base}/tmp"
 	mkdir "${base}/run"
+
+	success "==========================================================="
+	success "Make sure you save the username/password combo below."
+	success "==========================================================="
+	success "Login: $username"
+	success "Password: $sshPass"
 }
 
 if isValidUsername "$username"; then
