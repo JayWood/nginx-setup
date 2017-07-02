@@ -41,7 +41,7 @@ setupUser() {
 	success "Creating directories for ${username}"
 	useradd -m "${username}"
 	base="/home/${username}"
-	sshPass=randomPW
+	sshPass=$(randomPW)
 
 	# Set the users password.
 	echo -e "${sshPass}\n${sshPass}" | passwd "${username}"
