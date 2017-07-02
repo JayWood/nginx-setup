@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be ran as root."
+	exit 1
+fi
+
 # Setup some config vars
 poolDir="/etc/php5/fpm/pool.d"
 vHostDir="/etc/nginx/sites-available"
@@ -24,8 +29,9 @@ cat << EOF
 Usage: ${0##*/} -u USERNAME -h DOMAIN...
 Create a website and resource pool for DOMAIN for USERNAME
 
-	-u USERNAME 	Usernames are limited to 0-9A-Za-z_-
-	-h DOMAIN 		Excluding http:// eg. mysite.com
+	-u USERNAME   Usernames are limited to 0-9A-Za-z_-
+	-h DOMAIN     Excluding http:// eg. mysite.com
+
 EOF
 }
 
