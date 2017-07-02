@@ -35,4 +35,8 @@ Create a website and resource pool for DOMAIN for USERNAME
 EOF
 }
 
-showHelp
+# Require options to be setup.
+if [[ ! $@ =~ ^\-.+ ]]
+then
+  showHelp
+fi
