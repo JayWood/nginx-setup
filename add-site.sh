@@ -125,7 +125,7 @@ if [[ -z "${passInstall// }" ]]; then
 	replace "auth_basic" "#auth_basic" -- "$hostFile"
 else
 	# Create passwd file
-	htpasswd "/home/$username/.htpasswd" "$username" passInstall
+	htpasswd -c "/home/$username/.htpasswd" "$username" passInstall
 
 	echo "Setting host file for authoriazation..."
 	replace "#auth_basic" "auth_basic" -- "$hostFile"
