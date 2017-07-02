@@ -66,7 +66,7 @@ while [[ $# -gt 1 ]]; do
 	key="$1"
 	case $key in
 	    -u|--username)
-	    username="$2 | tr -d '[:space:]'"
+	    username="$2"
 	    shift # past argument
 	    ;;
 	    -h|--host)
@@ -81,7 +81,7 @@ while [[ $# -gt 1 ]]; do
 done
 
 # Chances are if we can't validate the name, then the user doesn't exist.
-if isValidUsername "$username"; then
+if [ ! isValidUsername "$username"]; then
 	error "$username is not a valid username."
 	exit 1
 fi
