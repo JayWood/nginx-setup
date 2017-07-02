@@ -6,7 +6,7 @@ server {
 
     server_name %DOMAIN%;
 
-    root /home/%USER%/html/%site%;
+    root /home/%USER%/html/%DOMAIN%;
     index index.php index.html index.htm;
 
     #include snippets/parse_php;
