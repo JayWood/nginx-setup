@@ -44,24 +44,22 @@ then
   showHelp
 fi
 
-while [[ $# -gt 1 ]]
-do
-key="$1"
-
-case $key in
-    -u|--username)
-    username="$2"
-    shift # past argument
-    ;;
-    -h|--host)
-    domain="$2"
-    shift # past argument
-    ;;
-    *)
-      # Skip this option, nothing special
-    ;;
-esac
-shift # past argument or value
+while [[ $# -gt 1 ]] do
+	key="$1"
+	case $key in
+	    -u|--username)
+	    username="$2"
+	    shift # past argument
+	    ;;
+	    -h|--host)
+	    domain="$2"
+	    shift # past argument
+	    ;;
+	    *)
+	      # Skip this option, nothing special
+	    ;;
+	esac
+	shift # past argument or value
 done
 
 echo "${username} and ${domain}"
