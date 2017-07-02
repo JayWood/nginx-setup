@@ -26,7 +26,7 @@ NC='\033[0m' # No Color
 
 showHelp() {
 cat << EOF
-Usage: ${0##*/} -u USERNAME -h DOMAIN...
+${GREEN}Usage: ${0##*/} -u USERNAME -h DOMAIN...${NC}
 Create a website and resource pool for DOMAIN for USERNAME
 
 	-u USERNAME   Usernames are limited to 0-9A-Za-z_-
