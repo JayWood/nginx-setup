@@ -1,49 +1,8 @@
 #!/bin/bash
 
-if [ "$(id -u)" != "0" ]; then
-	echo "This script must be ran as root."
-	exit 1
-fi
-
-# Setup some config vars
-poolDir="/etc/php5/fpm/pool.d"
-vHostDir="/etc/nginx/sites-available"
-vHostLinks="/etc/nginx/sites-enabled"
-
 # Get the main directory of the script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Some globals for later
-username=""
-domain=""
-htPass=""
-
-# A few colors for important stuff
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
-
-# Creates a random password using the built-in urandom
-randomPW(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
-
-# Validates the username against some regex.
-isValidUsername() {
-	local re='^[[:lower:]_][[:lower:][:digit:]_-]{2,15}$'
- 	(( ${#1} > 16 )) && return 1
- 	[[ $1 =~ $re ]] # return value of this comparison is used for the function
-}
-
-# Wrapper for displaying error messages
-error() {
-	echo -e "${RED}ERROR:${NC} $1"
-	echo
-}
-
-# Wrapper for displaying success messages
-success() {
-	echo -e "${GREEN}$1${NC}"
-	echo
-}
+. "$DIR/config.sh"
 
 showHelp() {
 cat << EOF
@@ -119,6 +78,37 @@ mkdir "$vHostDir/$domain.d"
 
 
 # TODO Setup htaccess auth properly.
+# 
+# Ideally it would go like this:
+# 
+# Do you want to setup htaccess for this install?
+# 	IF YES
+# 		Check for existing htaccess password
+# 			IF EXISTS
+# 				Ask if a new user should be made?
+# 				IF YES
+# 					PROMPT create new user
+# 				ENDIF
+# 			ELSE
+# 				PROMP create new user
+# 			ENDIF
+# 	ELSE
+# 		REPLACE auth_basic in vhost file
+# 
+# PROMPT create new user
+# INPUT username
+# 	VALIDATE username
+# 	IF FALSE then
+# 		INPUT username
+# 	ENDIF
+# 	
+# INPUT password
+# 	VALIDATE password
+# 	IF FALSE then
+# 		INPUT username
+# 	ENDIF
+# 		
+# 		
 # success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
 # read passInstall
 
