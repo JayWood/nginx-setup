@@ -119,13 +119,14 @@ mkdir "$vHostDir/sites-available/$domain.d"
 
 success "You're all setup, would you like to password this install, \nenter a password now, or just hit [ENTER] to skip this step."
 read passInstall
+$passInstall="${passInstall// }"
 
-if [[ -z "${passInstall// }" ]]; then
+if [[ -z $passInstall ]]; then
 	echo "Disabling basic_auth on host file..."
 	replace "auth_basic" "#auth_basic" -- "$hostFile"
 else
 	# Create passwd file
-	htpasswd -c "/home/$username/.htpasswd" "$username" passInstall
+	htpasswd -c "/home/$username/.htpasswd" "$username" "$passInstall"
 
 	echo "Setting host file for authoriazation..."
 	replace "#auth_basic" "auth_basic" -- "$hostFile"
