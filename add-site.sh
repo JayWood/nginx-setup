@@ -20,13 +20,13 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 showHelp() {
-	cat << EOF
-	Usage: ${0##*/} -u USERNAME -h DOMAIN...
-	Create a website and resource pool for DOMAIN for USERNAME
+cat << EOF
+Usage: ${0##*/} -u USERNAME -h DOMAIN...
+Create a website and resource pool for DOMAIN for USERNAME
 
-		-u USERNAME 	Usernames are limited to 0-9A-Za-z_-
-		-h DOMAIN 		Excluding http:// eg. mysite.com
-	EOF
+	-u USERNAME 	Usernames are limited to 0-9A-Za-z_-
+	-h DOMAIN 		Excluding http:// eg. mysite.com
+EOF
 }
 
 showHelp
