@@ -52,6 +52,8 @@ setupUser() {
 	mkdir "${base}/tmp"
 	mkdir "${base}/run"
 
+	chown -fR "$username:$username" "$base"
+
 	success "==========================================================="
 	success "Make sure you save the username/password combo below."
 	success "==========================================================="
