@@ -1,6 +1,9 @@
 #!/bin/bash
 
-. config.sh
+# Get the main directory of the script.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+. "$DIR/config.sh"
 
 showHelp() {
 cat << EOF
