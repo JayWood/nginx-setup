@@ -90,5 +90,19 @@ fi
 if [ ! -d "/home/$username" ]; then
 	error "The user $username appears to not be created?"
 	exit 1
-else
+fi
 
+# We must have the /files directory
+if [ ! -d "$DIR/files" ]; then
+	error "The required files directory is not at $DIR/files"
+	exit 1
+fi
+
+#copy the resource TPL file and move it
+cp "$DIR/files/vhost.tpl" "$vHostDir/$domain"
+
+# Replace username with username in the vhost file
+replace "%USER%" "$username" -- "$vHostDir/$domain"
+
+// Replace the domain now.
+replace "%DOMAIN%" "$domain" -- "$vHostDir/$domain"
